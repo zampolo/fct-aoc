@@ -3,6 +3,7 @@
 *.aux
 *.bbl
 *.bcf
+*.bm
 *.blc
 *.dvi
 *.log
