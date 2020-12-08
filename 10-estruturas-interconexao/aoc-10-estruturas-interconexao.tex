@@ -1,0 +1,131 @@
+\input{../slides-common/preambule}
+
+\pdsetup{
+   lf = {\cursopequeno},
+   rf = {Interconexão}, palette = {\palette}, randomdots={false},
+   cf = {\theslide}
+}
+
+
+%opening
+\title{\cursogrande\\ \vspace{1cm}{Interconexão entre componentes de um computador}}
+
+\begin{document}
+   \maketitle[randomdots={false}]
+   
+   \begin{slide}{Agenda}
+      \tableofcontents[content=sections]
+   \end{slide}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[slide=true]{Estruturas de interconexão}
+\begin{slide}{Estruturas de interconexão}
+	\twocolumn{
+	\begin{itemize}
+		\item Computador: conjunto de módulos.
+		\item Estrutura de interconexão: comunicação entre módulos
+		\item Entradas e saídas típicas:
+			\begin{itemize}
+				\item Memória\\
+					\begin{center}
+						\includegraphics[width = 0.8\textwidth]{figs/3-15a}
+					\end{center}
+			\end{itemize}
+	\end{itemize}
+	}{
+	\begin{itemize}
+		\item Entradas e saídas típicas:
+			\begin{itemize}
+				\item Dispositivos de E/S\\
+					\begin{center}
+						\includegraphics[width = 0.8\textwidth]{figs/3-15b}
+					\end{center}
+				\item Processador\\
+					\begin{center}
+						\includegraphics[width = 0.8\textwidth]{figs/3-15c}
+					\end{center}
+			\end{itemize}
+	\end{itemize}}
+\end{slide}
+\section[slide=true]{Interconexão por barramento}
+\begin{slide}{Interconexão por barramento}
+	\begin{itemize}
+		\item Barramento: caminho de comunicação que conecta dois ou mais dispositivos.
+		\item O barramento é compartilhado:
+			\begin{itemize}
+				\item Sinais transmitidos por um dispositivo ficam disponíveis para todos os outros dispositivos conectados ao barramento.
+				\item Somente um dispositivo pode transmitir por vez.
+			\end{itemize}
+		\item O barramento é composto, em geral, de múltiplos caminhos de comunicação ou linhas:
+			\begin{itemize}
+				\item Em cada linha são transmitidos sinais representando 0 ou 1.
+				\item Transmissão de bits: em série (uma linha) ou em paralelo (múltiplas linhas).
+				\item Tipos de linhas:
+					\begin{itemize}
+						\item Dados: o conjunto forma o \emph{barramento de dados}.
+						\item Endereços: o conjunto forma o \emph{barramento de endereços}.
+						\item Controle: o conjunto forma o \emph{barramento de controle}.
+					\end{itemize}
+			\end{itemize}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{Barramento de controle}
+	Linhas típicas de controle:
+	\begin{itemize}
+		\item Escrita em memória
+		\item Leitura em memória
+		\item Escrita em porta de E/S
+		\item Leitura em porta de E/S
+		\item Reconhecimento (ACK) de transferência
+		\item Requisição de barramento
+		\item Concessão de barramento
+		\item Requisição de interrupção
+		\item Reconhecimento de interrupção
+		\item Clock
+		\item Reset
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{Ilustração de um barramento}
+   \centering
+   \includegraphics[width=0.95\textwidth]{figs/3-16}
+\end{slide}
+
+\section[slide=true]{Interconexão ponto a ponto}
+\begin{slide}{Interconexão ponto a ponto}
+\begin{itemize}
+   \item Aumento de frequência em barramentos:
+	   \begin{itemize}
+		   \item Sincronização e arbitração cada vez mais difícil.
+	   \end{itemize}
+   \item Processadores multicore:
+	   \begin{itemize}
+		   \item Problemas com latência, taxa de bits e escalabilidade em barramentos compartilhados
+	   \end{itemize}
+   \item QuickPath Interconnect (QPI, Intel 2008):
+	   \begin{itemize}
+		   \item Conexões diretas múltiplas
+		   \item Arquitetura de protocolo em camadas: parecido com TCP/IP
+		   \item Transferência de dados em pacotes
+	   \end{itemize}
+   \end{itemize}
+\end{slide}
+
+\begin{slide}{Configuração multicore usando QPI}
+	\centering
+	\includegraphics[height=0.8\textheight]{figs/3-17}
+\end{slide}
+
+\begin{slide}{Arquitetura QPI}
+	Camadas da arquitetura QPI:
+	\begin{itemize}
+		\item Física: circuitos e conexões, Phit (physical unit, 20 bits).
+		\item Ligação: transmissão confiável e controle de fluxo, Flit (flow control unit, 80 bits).
+		\item Roteamento: estrutura de redirecionamento de pacotes (número inteiro de Flits).
+		\item Protocolo: conjunto de regras para a troca de pacotes.
+	\end{itemize}
+   \centering
+   \includegraphics[width=0.6\textwidth]{figs/3-18}
+\end{slide}
+
+\end{document}
