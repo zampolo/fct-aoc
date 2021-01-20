@@ -180,6 +180,45 @@
 \end{slide}
 
 \section[slide=true]{RAID}
+\begin{slide}{RAID - razões e princípios}
+	\begin{itemize}
+		\item O desempenho dos discos é menor, se comparado a processadores e memória principal
+		\item Pode-se obter melhoria mediante o acréscimo de elementos operando em paralelo
+		\item RAID (\emph{redundant array of independent disks}):
+			\begin{itemize}
+				\item Conjunto de discos físicos visto pelo sistema operacional como um único drive lógico
+				\item Distribuição de dados no arranjo de drives segundo um esquema conhecido como \emph{striping}
+				\item Permite o armazenamento de informação de paridade para proteção contra falhas de disco
+				\item Tipos: \textbf{RAID 0}, \textbf{RAID 1}, RAID 2, RAID 3, RAID 4, \textbf{RAID 5}, \textbf{RAID 6}
+			\end{itemize}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID 0}
+	\begin{itemize}
+		\item Não inclui redundância para melhoramento de desempenho
+		\item O disco lógico é dividido em \emph{strips} (blocos físicos, setores ou alguma outra unidade)
+		\item Os \emph{strips} são mapeados em discos consecutivos no arranjo RAID
+		\item \emph{Stripe}: conjunto lógico de \emph{strips} que são mapeados cada um em um elemento do arranjo de discos
+		\item A leitura de \emph{strips} consecutivas pode ser feita em paralelo
+		\item Ganhos: aumento na taxa de transferência de dados, aumento de taxa de requisição
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.55\textwidth]{figs/raid0}
+			\end{figure}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID 0}
+	\begin{itemize}
+		\item Software de gerenciamento de arranjo
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.65\textwidth]{figs/mapeamento}
+			\end{figure}
+	\end{itemize}
+\end{slide}
+
 \section[slide=true]{Drives de estado sólido}
 \section[slide=true]{Memória óptica}
 \section[slide=true]{Fita magnética}
@@ -199,6 +238,4 @@
 % \begin{slide}{ReRAM}
 % \end{slide}
 %
-
-
 \end{document}
