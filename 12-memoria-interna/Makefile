@@ -8,7 +8,7 @@
 
 all: dvi ps pdf 
 
-name-of-the-file = aoc-12-cache
+name-of-the-file = aoc-12-memoria-interna
 
 pdf: $(name-of-the-file).ps
 	@echo "Converting ps to pdf"
