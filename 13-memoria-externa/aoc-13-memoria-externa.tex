@@ -194,14 +194,14 @@
 	\end{itemize}
 \end{slide}
 
-\begin{slide}{RAID 0}
+\begin{slide}{RAID nível 0}
 	\begin{itemize}
 		\item Não inclui redundância para melhoramento de desempenho
 		\item O disco lógico é dividido em \emph{strips} (blocos físicos, setores ou alguma outra unidade)
 		\item Os \emph{strips} são mapeados em discos consecutivos no arranjo RAID
 		\item \emph{Stripe}: conjunto lógico de \emph{strips} que são mapeados cada um em um elemento do arranjo de discos
 		\item A leitura de \emph{strips} consecutivas pode ser feita em paralelo
-		\item Ganhos: aumento na taxa de transferência de dados, aumento de taxa de requisição
+		\item Melhor taxa de transferência de dados, e aumento da taxa de requisição
 			\begin{figure}[h]
 				\centering
 				\includegraphics[width=0.55\textwidth]{figs/raid0}
@@ -209,9 +209,9 @@
 	\end{itemize}
 \end{slide}
 
-\begin{slide}{RAID 0}
+\begin{slide}{RAID nível 0}
 	\begin{itemize}
-		\item Software de gerenciamento de arranjo
+		\item \emph{Software} de gerenciamento de arranjo
 			\begin{figure}[h]
 				\centering
 				\includegraphics[width=0.65\textwidth]{figs/mapeamento}
@@ -219,6 +219,97 @@
 	\end{itemize}
 \end{slide}
 
+\begin{slide}{RAID nível 1}
+	\begin{itemize}
+		\item Redundância por duplicação dos dados (espelhamento)
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid1}
+			\end{figure}
+		\item Características:
+			\begin{itemize}
+				\item Uma requisição pode ser atendida pelo disco que tiver menor tempo de acesso
+				\item Uma escrita deve ser atualizada em todas as \emph{strips} correspondentes (desempenho geral é o da escrita mais lenta)
+				\item Recuperação de dados em caso de falha é simples
+				\item Custo é a principal desvantagem 
+				\item Normalmente usado para armazenar arquivos do sistema e dados críticos
+			\end{itemize}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID nível 2}
+	\begin{itemize}
+		\item Usa técnica de acesso paralelo (braços e cabeçotes sincronizados em todos os discos)
+		\item \emph{Strips} pequenos (\emph{byte} ou palavra)
+		\item Adota código de Hamming (SEC-DED)
+		\item Número de discos de redundância é proporcional ao logaritmo do número de discos de dados
+		\item Não é implementado na prática (custo associado é desnecessário)
+	\end{itemize}
+
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid2}
+			\end{figure}
+\end{slide}
+
+\begin{slide}{RAID nível 3}
+	\begin{itemize}
+		\item Organização semelhante ao RAID 2
+		\item Usa apenas um disco para paridade, não importando o número de discos de dados
+	        \item Adota técnica de acesso paralelo (como no RAID 2)
+		\item Em lugar de código correto de erro, calcula bit de paridade para bits na mesma posição em todos os discos de dados
+		\item Em caso de falha de um drive, disco de paridade é usado para restaurar o drive perdido
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid3}
+			\end{figure}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID nível 4}
+	\begin{itemize}
+		\item Usa técnica de acesso independente
+		\item Mais adequado a demandas onde o atendimento de requisições simultâneas é prioritário
+		\item Adota \emph{strips} maiores
+		\item Paridade por blocos \emph{strips}
+		\item Penalidade para escrita para conjunto de dados pequeno
+		\item Gargalo associado à escrita no disco de paridade
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid4}
+			\end{figure}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID nível 5}
+	\begin{itemize}
+		\item Esquema semelhante ao do RAID 4
+		\item \emph{Strips} de paridade distribuídas nos discos
+		\item Reduz gargalo em relação ao disco de paridade
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid5}
+			\end{figure}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{RAID nível 6}
+	\begin{itemize}
+		\item Semelhante ao RAID 5
+		\item Usa dois \emph{strips} de verificação de dados por \emph{stripe}
+			\begin{itemize}
+				\item Algoritmo baseado no OU-Exclusivo
+				\item Algoritmo independente (diferente)
+			\end{itemize}
+		\item Proteção contra falha de até dois discos
+		\item Penalidade de escrita mais alta que em RAID 5
+		\item Desempenho em leitura comparável a RAID 5
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.75\textwidth]{figs/raid6}
+			\end{figure}
+	\end{itemize}
+\end{slide}
 \section[slide=true]{Drives de estado sólido}
 \section[slide=true]{Memória óptica}
 \section[slide=true]{Fita magnética}
