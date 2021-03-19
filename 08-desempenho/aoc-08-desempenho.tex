@@ -38,11 +38,6 @@
 	\end{itemize}
 \end{slide}
 
-\begin{slide}[toc=]{Comparativo de velocidade}
-	\begin{center}
-		\includegraphics[width=0.80\textwidth]{figs/diff_proc_mem.eps} 
-	\end{center}
-\end{slide}
 
 \begin{slide}[toc=]{Microprocessadores}
 	\begin{itemize}
@@ -71,7 +66,7 @@
 				\item Pipeline: 
 					\begin{itemize}
       						\item Permite execução de instruções em paralelo
-						\item Funciona como em uma linha de montagem
+						\item Funciona como uma linha de montagem
 						\item Diferentes estágios de execução de diferentes instruções ao mesmo tempo:\pause
 							\begin{itemize}
 								\item Busca (envolve Memória e Barramentos)
@@ -91,13 +86,12 @@
 	\end{itemize}
 \end{slide}
 
-\begin{slide}[toc=]{Micropocessadores}
-	Tendência atual no desenvolvimento de processadores
+
+\begin{slide}[toc=]{Comparativo de velocidade}
 	\begin{center}
-		\includegraphics[width = 0.8\textwidth]{figs/tendencia}
+		\includegraphics[width=0.80\textwidth]{figs/diff_proc_mem.eps} 
 	\end{center}
 \end{slide}
-
 \begin{slide}[toc=]{Memória}
 	\begin{itemize}
 		\item A velocidade de transferência de dados entre memória e processador é um fator crítico no desempenho\pause
@@ -123,7 +117,7 @@
 	\end{center}
 \end{slide}
 
-\section[slide=false]{Multicore, MIC e GPGPU}
+\section[slide=true]{Multicore, MIC e GPGPU}
 \begin{slide}[toc=]{Novas tendências de projeto}
 	\begin{itemize}
 		\item O desempenho em um processador é proporcional à raiz quadrada da complexidade\pause
@@ -143,31 +137,125 @@
 	\end{itemize}
 \end{slide}
 
+\begin{slide}[toc=]{Micropocessadores}
+	Tendência atual no desenvolvimento de processadores
+	\begin{center}
+		\includegraphics[width = 0.8\textwidth]{figs/tendencia}
+	\end{center}
+\end{slide}
 
-\section[slide=false]{Avaliação de desempenho}
+\section[slide=true]{Leis de Amdahl e Little}
+\begin{slide}{Lei de Amdahl (Gene Amdahl, 1967)}
+\begin{itemize}
+   \item Caracteriza o \textit{speedup} de um programa usando múltiplos processadores em comparação com um único processador:
+   \begin{align*}
+      \text{Speedup} &= \frac{\text{tempo de execução com um único processador}}{\text{tempo de execução com $N$ processadores paralelos}}\\
+              &= \frac{T(1-f)+Tf}{T(1-f)+\frac{Tf}{N}}\\
+              &= \frac{1}{(1-f)+\frac{f}{N}}\\
+   \end{align*}
+   onde $f$ corresponde à fração paralelizável.\pause
+		\item Consequências:
+			\begin{itemize}
+				\item Quando $f$ é pequeno, o uso de processadores em paralelo tem pouco efeito
+				\item Quando $N$ tende ao infinito, o \emph{speedup} atinge um limite
+			\end{itemize}
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Lei de Amdahl }
+	\begin{itemize}
+		\item Ilustração da Lei de Amdahl
+			\begin{center}
+				\includegraphics[width=0.8\textwidth]{figs/amdahl1}
+			\end{center}
+	\end{itemize}
+\end{slide}
+
+\begin{slide}{Lei de Amdahl }
+	\begin{itemize}
+		\item Ilustração da Lei de Amdahl
+			\begin{center}
+				\includegraphics[width=0.7\textwidth]{figs/amdahl2}
+			\end{center}
+	\end{itemize}
+\end{slide}
+
+
+\begin{slide}{Lei de Amdahl generalizada}
+\begin{itemize}
+   \item Caracteriza o \textit{speedup} de um programa otimizado por qualquer processo:
+   \begin{align*}
+	   \text{Speedup} &= \frac{\text{tempo de execução antes da melhoria}}{\text{tempo de execução após a melhoria}}\\
+              &= \frac{\text{desempenho após a melhoria}}{\text{desempenho antes da melhoria}}\\
+              &= \frac{1}{(1-f)+\frac{f}{SU_f}}\\
+   \end{align*}
+   onde $SU_f$ corresponde ao \textit{speedup} da fração otimizada.
+\end{itemize}
+\end{slide}
+
+\begin{slide}{Lei de Little}
+	\begin{itemize}
+		\item Considere um sistema (fila) em que itens chegam a uma taxa média $\lambda$ (itens por unidade de tempo)
+		\item Cada item permanece no sistema, em média, por $W$ unidades de tempo
+		\item A quantidade de itens no sistema ($L$) em determinado tempo é (em média):
+			\begin{equation*}
+				L = \lambda W
+			\end{equation*}
+		\item O sistema (fila) neste caso representa qualquer serviço prestado, enquanto os itens são solicitações ou tarefas demandadas:
+			\begin{itemize}
+				\item Atendimento de clientes no balcão da padaria
+				\item Tempo para entrega de notas da prova
+				\item Execução de \emph{threads} em sistemas multicore com acesso à memória compartilhado
+				\item Distribuição de pacotes em transmissão de dados via rede
+			\end{itemize}
+	\end{itemize}
+\end{slide}
+
+\section[slide=true]{Medidas básicas de avaliação de desempenho de computadores}
 \begin{slide}{Alguns fatores importantes}
 \begin{itemize}
-   \item Velocidade do processador
-   \item Conjunto de instruções da máquina
-   \item Escolha da linguagem de implementação
-   \item Eficiência do compilador
-   \item Habilidade do programador
+	\item Avaliação de um sistema compreende:
+		\begin{itemize}
+			\item Custo
+			\item Tamanho
+			\item Segurança
+			\item Confiabilidade
+			\item Consumo de energia
+			\item Desempenho (velocidade de processamento)
+		\end{itemize}\pause
+	\item Fatores que influenciam o desempenho (em uma dada aplicação):
+		\begin{itemize}
+			\item Velocidade do processador
+			\item Conjunto de instruções da máquina
+			\item Escolha da linguagem de implementação
+			\item Eficiência do compilador
+			\item Habilidade do programador
+		\end{itemize}
 \end{itemize}
 \end{slide}
 
 \begin{slide}{Velocidade de \emph{clock}}
-\begin{itemize}
-   \item Por que o \emph{clock} não é tudo em termos de desempenho?
-   \begin{itemize}
-      \item Diferentes instruções exigem um número diferente de ciclos para serem executadas
-      \item Máquinas com \textit{pipeline}: várias instruções em execução simultaneamente
-   \end{itemize}
-\end{itemize}
+	\twocolumn{
+		\begin{itemize}
+			\item O \emph{clock} define o ritmo do processador: busca, decodificação, e execução de instruções\pause
+			\item O valor do \emph{clock} não é arbitrário: deve observar os atrasos de propagação dos sinais nos circuitos digitais\pause
+			\item Por que o \emph{clock} não é tudo em termos de desempenho?
+				\begin{itemize}
+					\item Diferentes instruções exigem um número diferente de ciclos para ser executadas
+					\item Máquinas com \textit{pipeline}: várias instruções em execução simultaneamente
+				\end{itemize}
+		\end{itemize}
+		}{
+		\begin{center}
+			\includegraphics[width=0.9\textwidth]{figs/stopwatch}
+			\includegraphics[width=0.9\textwidth]{figs/clock}
+		\end{center}
+		}
 \end{slide}
 
-\begin{slide}{Métricas de desempenho 1}
+\begin{slide}{Taxa de execução de instruções}
 \begin{itemize}
-   \item Média de ciclos por instrução ($CPI$):
+   \item Ciclos por instrução médio ($CPI$):
    \begin{equation}
        CPI = \frac{\sum_{i = 1}^{n} CPI_i\times I_i}{I_c}
    \end{equation}
@@ -181,108 +269,118 @@
 \end{itemize}
 \end{slide}
 
-\begin{slide}{Métricas de desempenho 2}
+\begin{slide}{Taxa de execução de instruções}
 \begin{itemize}
-   \item Tempo de execução ($T$):
-   \begin{equation}
-       T = I_c \times CPI\times \tau
-   \end{equation}
-   onde $\tau = 1/f$ é o tempo de um período do \emph{clock} ($f$: frequência do \emph{clock}).
-   \begin{equation}
-      T = I_c \times \left [ p + \left ( m\times k \right )\right ]\times \tau
-   \end{equation}
-   \begin{itemize}
-      \item $p$ número de ciclos para decodificar e executar um \emph{instrução média}; 
-      \item $m$ número de referências à memória necessário; 
-      \item $k$ razão entre o tempo de ciclo da memória e o tempo de ciclo do processador; 
-   \end{itemize}
+	\item Tempo de execução ($T$):
+		\begin{equation*}
+			T = I_c \times CPI\times \tau
+		\end{equation*}
+		onde $\tau = 1/f$ é o tempo de um período do \emph{clock} ($f$: frequência do \emph{clock}).
+	\item Refinamento:
+		\begin{equation*}
+			T = I_c \times \left [ p + \left ( m\times k \right )\right ]\times \tau
+		\end{equation*}
+		onde :
+		\begin{itemize}
+			\item $p$ é o número de ciclos para decodificar e executar um \emph{instrução média} 
+			\item $m$ é o número de referências à memória necessário 
+			\item $k$ é a razão entre o tempo de ciclo da memória e o tempo de ciclo do processador 
+		\end{itemize}
 \end{itemize}
 \end{slide}
 
-\begin{slide}{CPI e tipos de instruções}
-\begin{center}
-   %\includegraphics[width=0.99\textwidth]{figs/cpi_por_tipo} 
-\end{center} 
+\begin{slide}{Taxa de execução de instruções}
+	\begin{itemize}
+		\item {CPI e tipos de instruções}
+			\begin{center}
+				\includegraphics[width=0.8\textwidth]{figs/cpi} 
+			\end{center} 
+	\end{itemize}
 \end{slide}
 
-\begin{slide}{taxas MIPS e MFLOPS}
+\begin{slide}{Taxa de execução de instruções}
 \begin{itemize}
-   \item MIPS (milhões de instruções por segundo)\\ $MIPS = \frac{I_c}{T\times 10^6} = \frac{f}{CPI\times 10^6}$
-   \item MFLOPS (milhões de operações de ponto flutuante por segundo)\\
-   $MFLOPS = \frac{\text{número de operações de ponto flutuante}}{T\times 10^6}$
+   \item Milhões de instruções por segundo -- MIPS:
+	   \begin{equation*}
+		   MIPS = \frac{I_c}{T\times 10^6} = \frac{f}{CPI\times 10^6}
+	   \end{equation*}
+   \item Milhões de operações de ponto flutuante por segundo -- MFLOPS
+	   \begin{equation*}
+		   MFLOPS = \frac{\text{número de operações de ponto flutuante}}{T\times 10^6}
+	   \end{equation*}
 \end{itemize} 
 \end{slide}
 
-\begin{slide}{Benchmarks 1}
+\section[slide=true]{Cálculo de médias}
+\begin{slide}{Definições}
+	\begin{itemize}
+		\item As médias servem para caracterizar um atributo que pode variar dependendo das condições de execução
+		\item Média aritmética:
+			\begin{equation*}
+				m_a = \sum_{i=1}^n x_i
+			\end{equation*}
+		\item Média geométrica:
+			\begin{equation*}
+				m_g = \left (\prod_{i=1}^n  x_i \right )^{1/n} = \exp \left \{ \frac{1}{n}\sum_{i=1}^n \ln \left ( x_i \right ) \right \}
+			\end{equation*}
+		\item Média harmônica:
+			\begin{equation*}
+				m_h = \frac{n}{ \sum\limits_{i=1}^n \frac{1}{x_i}  }
+			\end{equation*}
+	\end{itemize}
+\end{slide}
+
+\section[slide=true]{Benchmarks e SPEC}
+\begin{slide}{Benchmarks: motivação e princípios}
 Mesmo as taxas MIPS e MFLOPS podem ser inadequadas:\\
 \begin{itemize}
  \item Ex.: Executar A=B+C\\
 \begin{itemize}
    \item Máquina CISC (1 MIPS)\\
-   \tt{add mem(B), mem(C), mem(A)}
+   \texttt{add mem(B), mem(C), mem(A)}
    
    \item Máquina RISC (4 MIPS)\\
-   \tt{load mem(B), reg(1);\\
+   \texttt{load mem(B), reg(1);\\
        load mem(C), reg(2);\\
        add  reg(1), reg(2), reg(3);\\
        store reg(3), mem(A)}
 \end{itemize}
-\end{itemize}
-\end{slide}
-
-\begin{slide}{Benchmarks 2}
-\begin{itemize}
-   \item Benchmark: 
+   \item Benchmark são: 
    \begin{itemize}
-      \item programas elaborados para testar o desempenho.
-      \item Escritos em linguagem de alto nível.
+      \item Programas elaborados para testar o desempenho em determinado contexto;
+      \item Escritos em linguagem de alto nível;
       \item Portáveis.
 \end{itemize}
-   \item Exemplo: System Performance Evaluation Corporation -- SPEC CPU2006
-   \begin{itemize}
-      \item Desempenho em aplicações que gastam a maior parte do tempo na realização de cálculos
-      \item 17 programas de ponto flutuante em C, C++, Fortran.
-      \item 12 programas de inteiros em C, C++.
-      \item 3 milhões de linhas de código.
-   \end{itemize}
 \end{itemize}
 \end{slide}
 
-\begin{slide}{Benchmark 3}
+\begin{slide}{Benchmarks SPEC}
 \begin{itemize}
-   \item Outros pacotes:
-   \begin{itemize}
-      \item SPECjvm98: desempenho de hardware e software da plataforma cliente JVM
-      \item SPECjbb2000: desempenho de aplicações de comércio eletrônico baseadas em Java (lado servidor)
-      \item SPECweb99: desempenho de servidores WWW
-      \item SPECmail2001: desempenho de servidores de email
-   \end{itemize}
-   
+	\item SPEC: \textit{Standard Performance Evaluation Corporation}
+	\item SPEC CPU2006: aplicações intensivas para o processador (não E/S)
+		\begin{itemize}
+			\item Desempenho em aplicações que gastam a maior parte do tempo na realização de cálculos
+			\item 17 programas para avaliação de processamento de ponto flutuante em C, C++, Fortran.
+			\item 12 programas para avaliação de processamento de inteiros em C, C++.
+			\item São mais de 3 milhões de linhas de código.
+		\end{itemize}
 \end{itemize}
 \end{slide}
 
-\begin{slide}{Lei de Amdahl}
+\begin{slide}{Outras suítes SPEC}
 \begin{itemize}
-   \item Caracteriza o \textit{speedup} de um programa usando múltiplos processadores em comparação com um único processador:
-   \begin{align*}
-      Speedup &= \frac{\text{tempo de execução com um único processador}}{\text{tempo de execução com $N$ processadores paralelos}}\\
-              &= \frac{T(1-f)+Tf}{T(1-f)+\frac{Tf}{N}}\\
-              &= \frac{1}{(1-f)+\frac{f}{N}}\\
-   \end{align*}
-   onde $f$ corresponde à fração paralelizável.
+	\item SPECviewperf: avaliação de desempenho em gráficos 3D em aplicações profissionais
+	\item SPECwpc: avaliação de aspectos-chave no desempenho de estações de trabalho
+	\item SPECjvm2008: desempenho de hardware e software da plataforma cliente JVM
+      \item SPECjbb2013: desempenho de aplicações de comércio eletrônico baseadas em Java (lado servidor)
+      \item SPECcfs2008: avaliação da velocidade e capacidade no gerenciamento de requisições de servidores de arquivos
+      \item SPECvirt\_sc2014: avaliação de desempenho de servidores de virtualização
 \end{itemize}
 \end{slide}
 
-\begin{slide}{Lei de Amdahl generalizada}
-\begin{itemize}
-   \item Caracteriza o \textit{speedup} de um programa otimizado por qualquer processo:
-   \begin{align*}
-      Speedup &= \frac{\text{tempo de execução antes da melhoria}}{\text{tempo de execução após a melhoria}}\\
-              &= \frac{\text{desempenho após a melhoria}}{\text{desempenho antes da melhoria}}\\
-              &= \frac{1}{(1-f)+\frac{f}{SU_f}}\\
-   \end{align*}
-   onde $SU_f$ corresponde ao \textit{speedup} da fração otimizada.
-\end{itemize}
+\begin{slide}{Fluxo de avaliação SPEC}
+	\begin{center}
+		\includegraphics[height = 0.8\textheight]{figs/fluxo-spec}
+	\end{center}
 \end{slide}
-
 \end{document}
