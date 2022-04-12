@@ -168,6 +168,10 @@ Camadas da arquitetura de protocolo PCIe\\
 		\item Exemplo: porta PCIe de 4 vias (distribuição multivia)
 			\centering
 			\includegraphics[width=0.9\textwidth]{figs/3-23}
+		\item Em cada via física, os dados são bufferizados e processados em 16 bytes (128 bits) e depois codificados em uma palavra de código de 130 bits
+		\item Sincronização baseada no sinal recebido (transições do sinal recebido)
+		\item Problema: longas sequências binárias sem variação pode levar à perda de sincronização.
+		\item Solução: cifragem:  técnica de mapeamento para que os dados apareçam de maneira mais aleatória (melhor distribuição das transições).
 	\end{itemize}
 \end{slide}
 
