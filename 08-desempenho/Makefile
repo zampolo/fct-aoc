@@ -1,17 +1,33 @@
+# Usage:
+# make	# generate a pdf file from tex and bib
+# make view	# exhibit pdf file
+# make clean	# remove all accessory files except pdf, bib, tex, and the Makefile itself
+#
+# @RonaldoZampolo
+# 2020.08.14
+
+all: dvi ps pdf 
+
 name-of-the-file = aoc-08-desempenho
 
-$(name-of-the-file).pdf: $(name-of-the-file).ps 
+pdf: $(name-of-the-file).ps
+	@echo "Converting ps to pdf"
 	ps2pdf $(name-of-the-file).ps
 
-$(name-of-the-file).ps: $(name-of-the-file).dvi
+ps: $(name-of-the-file).dvi
+	@echo "Converting dvi to ps"
 	dvips $(name-of-the-file).dvi
 
-$(name-of-the-file).dvi: $(name-of-the-file).tex ../slides-common/preambule.tex
-	latex $(name-of-the-file).tex
-	latex $(name-of-the-file).tex
+dvi: $(name-of-the-file).tex 
+	@echo "Running latex"
+	latex  $(name-of-the-file).tex
+	bibtex $(name-of-the-file)
+	latex  $(name-of-the-file).tex
+	latex  $(name-of-the-file).tex
 
 view:
 	evince $(name-of-the-file).pdf &
 
 clean:
-	rm *.aux *.dvi *.log *.ps *.toc *.bm
+	rm *.bbl *.bcf *.blg *.xml *.aux *.dvi *.log *.ps *.toc *.bm
+
